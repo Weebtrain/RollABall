@@ -1,8 +1,9 @@
-
 using UnityEngine;
 
 public class BallController : MonoBehaviour
 {
+    public Rigidbody ballRigidbody;
+    public float ballSpeed = 1;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -12,24 +13,23 @@ public class BallController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector2 inputVector = Vector2.zero; // intialize our input vector
+        Vector3 inputVector = Vector3.zero; // intialize our input vector
         if (Input.GetKey(KeyCode.W))
         {
-            inputVector += Vector2.up;
+            inputVector += Vector3.forward;
         }
-        
         if (Input.GetKey(KeyCode.S))
         {
-            inputVector += Vector2.down;
+            inputVector += Vector3.back;
         }
         if (Input.GetKey(KeyCode.D))
         {
-            inputVector += Vector2.right;
+            inputVector += Vector3.right;
         }
         if (Input.GetKey(KeyCode.A))
         {
-            inputVector += Vector2.left;
+            inputVector += Vector3.left;
         }
-        Debug.Log("Resultant Vector: " + inputVector);
+        ballRigidbody.AddForce(inputVector * ballSpeed);
     }
 }
