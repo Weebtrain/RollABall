@@ -5,12 +5,12 @@ public class BallController : MonoBehaviour
 {
     [SerializeField] private Rigidbody ballRigidbody;
     [SerializeField] private float ballSpeed = 1;
+    [SerializeField] private float jumpForce = 1;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
     }
 
     // Update is called once per frame
@@ -19,8 +19,13 @@ public class BallController : MonoBehaviour
         
     }
 
+    
+
     public void MoveBall(Vector3 input)
     {
-        ballRigidbody.AddForce(input * ballSpeed);
+        input.x *= ballSpeed;
+        input.y *= jumpForce;
+        input.z *= ballSpeed;
+        ballRigidbody.AddForce(input);
     }
 }

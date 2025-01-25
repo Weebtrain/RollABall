@@ -5,10 +5,19 @@ using UnityEngine.Events;
 public class InputManager : MonoBehaviour
 {
     public UnityEvent<Vector3> OnMove = new UnityEvent<Vector3>();
+    private float jumpAdd = 0;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Floor")
+        {
+            jumpAdd = 1;
+        }
     }
 
     // Update is called once per frame
@@ -30,6 +39,11 @@ public class InputManager : MonoBehaviour
         if (Input.GetKey(KeyCode.A))
         {
             inputVector += Vector3.left;
+        }
+        if (Input.GetKey(KeyCode.Space))
+        {
+            inputVector += Vector3.up * jumpAdd;
+            jumpAdd = 0;
         }
         OnMove?.Invoke(inputVector);
     }
